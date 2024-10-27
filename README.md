@@ -20,13 +20,13 @@ cd WhisperVote-Backend-Auth
 
 ### Set the environment variables
 
-modify the `docker-compose.yml` file to set the environment variables for the MariaDB container and the .NET application.
+modify the `docker-compose.yml` file to set the environment variables for the MySQL container and the .NET application.
 
 ```sh
-      - 'MARIADB_DATABASE=WhisperVoteVote'
-      - 'MARIADB_PASSWORD=SuperSicheresPasswort123!'
-      - 'MARIADB_ROOT_PASSWORD=SuperSicheresPasswort123!'
-      - 'MARIADB_USER=WhisperVote'
+      - 'MYSQL_DATABASE=WhisperVoteAuth'
+      - 'MYSQL_PASSWORD=SuperSicheresPasswort123!'
+      - 'MYSQL_ROOT_PASSWORD=SuperSicheresPasswort123!'
+      - 'MYSQL_USER=WhisperVote'
       - 'ConnectionStrings__AuthServer=http://auth:9912'
       - 'ASPNETCORE_HTTP_PORTS=9912'
 ```
