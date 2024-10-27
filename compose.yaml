@@ -1,0 +1,42 @@
+services:
+  mysql-db-auth:
+    container_name: mysql-db-auth
+    hostname: mysql-db-auth
+    restart: unless-stopped
+    image: 'mysql:8.0.39-debian'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    environment:
+      - 'MYSQL_DATABASE=WhisperVoteAuth'
+      - 'MYSQL_PASSWORD=SuperSicheresPasswort123!'
+      - 'MYSQL_ROOT_PASSWORD=SuperSicheresPasswort123!'
+      - 'MYSQL_USER=WhisperVote'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - shared
+
+  auth-backend:
+    container_name: auth
+    build:
+        context: .
+    restart: unless-stopped
+    environment:
+      - 'TokenLifetime=120'
+      - 'AllowedStrikes=3'
+      - 'ASPNETCORE_HTTP_PORTS=9912'
+    ports:
+      - '9912:9912'
+    networks:
+      - shared
+    depends_on:
+      mysql-db-auth:
+        condition: service_healthy
+
+networks:
+  shared:
+    external: true
+volumes:
+  mysql-data:
