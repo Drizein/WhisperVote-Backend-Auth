@@ -39,4 +39,4 @@ docker compose up -d
 
 ### Access the application
 
-Open your browser and navigate to `http://localhost:9914`.
+Open your browser and navigate to `http://localhost:9912`.
